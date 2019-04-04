@@ -32,8 +32,22 @@ describe('Airport', function(){
     spyOn(airport, 'isStormy').and.returnValue(true)
     expect(function(){
       airport.clearForTakeOff(plane)}).toThrow('cannot takeoff')
-
   })
+
+  it('prevents landing when stormy', function(){
+    spyOn(airport, 'isStormy').and.returnValue(true)
+    expect(function(){
+      airport.clearForLanding(plane)}).toThrow('cannot land')
+  })
+
+  it('prevents landing when full', function(){
+
+    airport.clearForLanding(plane)
+    console.log(airport)
+    expect(function(){
+    airport.clearForLanding(plane)}).toThrow('cannot land')
+  });
+
 
 
 });
