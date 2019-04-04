@@ -1,9 +1,11 @@
 
 'use strict';
 
-function Airport(){
+
+function Airport(capacity){
+  var DEFAULTCAPACITY = 1
   this.hangar = [];
-  this.capacity = 1;
+  this.capacity = capacity || DEFAULTCAPACITY;
 }
 Airport.prototype.hangar = function(){ return this.hangar; };
 

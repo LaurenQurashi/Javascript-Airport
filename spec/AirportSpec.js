@@ -50,4 +50,18 @@ describe('Airport', function(){
 
 
 
+  it('has a default capacity if nothing passed in', function(){
+    airport = new Airport()
+    expect(airport.capacity).toEqual(1)
+  })
+
+
+
+  it('has default capacity of value passed in', function(){
+    airport = new Airport(5)
+    expect(airport.capacity).toEqual(5)
+
+  //
+   })
+
 });
