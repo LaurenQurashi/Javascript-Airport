@@ -1,27 +1,39 @@
+'use strict';
 
-describe('Airport', function() {
-
+describe('Airport', function(){
   var airport;
   var plane;
-  // similar to an instance variable initialization.
-
-  beforeEach(function() {
-    airport = new Airport()
-    // creates a new object before each test.
+  beforeEach(function(){
+    airport = new Airport();
+    plane = jasmine.createSpyObj('plane',['land']);
   });
 
-  it('starts with no planes in the hangar', function() {
-    expect(airport.showHangar()).toEqual([]);
+  it('has no planes by default', function(){
+    expect(airport.hangar).toEqual([]);
   });
 
-  it('adds a plane to the hangar with land()', function() {
-    airport.land();
-    expect(airport.showHangar()).toContain(plane);
+  it('can clear planes for landing', function(){
+    airport.clearForLanding(plane);
+    expect(airport.hangar).toEqual([plane]);
   });
 
-  it('removes a plane from the hangar with takeOff()', function() {
-    airport.takeOff();
-    expect(airport.showHangar()).not.toContain(plane);
+  it('can clear plane for takeoff', function(){
+    plane.land(airport)
+    airport.clearForTakeOff();
+    expect(airport.hangar).toEqual([])
+
+  })
+
+  it('returns a type of weather' , function(){
+    expect(airport.isStormy()).toEqual(false)
   });
+
+  it('prevent takeoff when stormy', function() {
+    spyOn(airport, 'isStormy').and.returnValue(true)
+    expect(function(){
+      airport.clearForTakeOff(plane)}).toThrow('cannot takeoff')
+
+  })
+
 
 });

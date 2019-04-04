@@ -1,20 +1,24 @@
 
+'use strict';
 
-function Airport() {
-  this.hangar =  [];
+function Airport(){
+  this.hangar = [];
+}
+Airport.prototype.hangar = function(){ return this.hangar; };
+
+Airport.prototype.clearForLanding = function(plane) {
+  this.hangar.push(plane);
 };
 
-Airport.prototype.showHangar = function() {
-  // the prototype key word binds this method to the Airport object.
-  return this.hangar;
+Airport.prototype.clearForTakeOff = function(plane) {
+  if (this.isStormy()){
+    throw 'cannot takeoff'}
+  {this.hangar.pop()};
 };
 
-Airport.prototype.land = function(plane) {
-  this.hangar.push(plane)
-  // this function adds a plane to the hangar array when one has landed.
-};
-
-Airport.prototype.takeOff = function(plane) {
-  this.hangar.filter(function(eachPlane){ return eachPlane != plane })
-  // this function 
-};
+Airport.prototype.isStormy = function() {
+  return false
+}
+// As an air traffic controller
+// To ensure safety
+// I want to prevent takeoff when weather is stormy
